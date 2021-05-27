@@ -4,7 +4,7 @@ import ru.netology.domain.MovieItem;
 
     public class MovieManager {
         private MovieItem[] items = new MovieItem[0];
-        private int maxAmount = 9;
+        private int maxAmount = 10;
 
         public MovieManager() {
         }
@@ -39,20 +39,20 @@ import ru.netology.domain.MovieItem;
             } else {
                 resultLength = items.length;
             }
-
-            MovieItem[] result = new MovieItem[items.length];
-
+            MovieItem[] result = new MovieItem[resultLength];
             // перебираем массив в прямом порядке
             // но кладём в результаты в обратном
             for (int i = 0; i < resultLength; i++) {
-                int index = resultLength - i - 1;
-                result[i] = items[index];
-
+                if (items.length > maxAmount) {
+                    int index = resultLength - i -1 + (items.length - maxAmount);
+                    result[i] = items[index];
+                } else {
+                    int index = resultLength - i - 1;
+                    result[i] = items[index];
+                }
             }
             return result;
         }
-
-        // наивная реализация
         public void removeById(int id) {
             int length = items.length - 1;
             MovieItem[] tmp = new MovieItem[length];
@@ -66,6 +66,7 @@ import ru.netology.domain.MovieItem;
             // меняем наши элементы
             items = tmp;
         }
+
 
     }
 
